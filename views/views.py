@@ -138,7 +138,8 @@ class Post_View_Handler(BaseHandler):
         select_group	= self.get_argument("select_group")
         remote_exec_shell =  (self.get_argument("remote_exec_shell").encode("utf-8")).split("\n")
 	default_status='<a class="text-danger">暂无</a>'
-	self.db.hset(select_group, pro_name, (default_status,default_status,default_status,default_status))
+	count = 0
+	self.db.hset(select_group, pro_name, {"count":count,"config":[default_status,default_status,default_status,default_status]})
         #创建工作的根目录
 	if self.db.exists("base_path"):  
 	    base_path =self.db.get("base_path")

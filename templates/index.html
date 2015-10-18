@@ -30,12 +30,15 @@
    <tbody>
 	{% for x in group_table %}
           <tr>
-	    <!--<td><a href="/programme_edit/">{{x}}</a></td>-->
-	<td style="width:300px;"><a href="/programme_edit/">{{x}}</a><div class="badge pull-right" style="background-color:red;">32</div></td>
 		{% set value = group_table[x] %}
-	        {% for i in  tuple(eval(value)) %}
-         	   <td class="text-center">{% raw i%} </td>
-	        {% end %}
+	    <!--<td><a href="/programme_edit/">{{x}}</a></td>-->
+	<td style="width:300px;"><a href="/programme_edit/">{{x}}</a><div class="badge pull-right" style="background-color:red;">{{(eval(value))["count"]}}</div></td>
+
+                {% set list_config= (eval(value))["config"] %}
+                {% for i in  list_config %}
+                   <td class="text-center">{% raw i%} </td>
+                {% end %}
+
             <td class="text-center"><span class="glyphicon glyphicon-circle-arrow-right" style="color: rgb(255, 140, 60); font-size: 27px;"></span></td>
           </tr>
 	{% end %}
