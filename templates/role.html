@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block body %}
+{% autoescape None %}
+
+
+
+<div class="container-fluid">
+   <div class="row-fluid">
+     <div class="col-md-12">
+        <div class="panel panel-danger">
+         <div class="panel-heading">
+	    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>添加角色</button>
+            <blockquote class="pull-right">共有数据：{{len(u_role_info)}} 条</blockquote>
+         </div>
+
+
+<div class="table-responsive">
+   <table class="table table-condensed">
+      <thead>
+         <tr>
+            <th>角色列表</th>
+         </tr>
+      </thead>
+   </table>
+</div>  
+
+
+<table class="table table-bordered table-hover table-condensed">
+   <thead>
+      <tr class="success">
+            <th></th>
+            <th>角色</th>
+            <th>用户列表</th>
+            <th>描述</th>
+            <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+{% for items in u_role_info %}
+      <tr>
+         <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
+         <td>{{''.join((eval(items))["role_name"])}}</td>
+         <td>
+             {% set data = eval(u_hash_info[''.join((eval(items))["role_name"])]) %}
+             {% if len(data) > 1 %}
+                {% set data=data[1:]%}
+             {% end %}
+             {% for i in data %}
+		<a class="text-success">{{ i }}</a>
+             {% end %}
+	 </td>
+         <td>{{''.join((eval(items))["role_desc"])}}</td>
+         <td class="text-center"> 
+<a href="#" class="tooltip-show" data-toggle="tooltip" data-placement="top"  title="编辑"><span class="glyphicon glyphicon-pencil" ></span></a>
+<a href="#" class="tooltip-show" data-toggle="tooltip" data-placement="right"  title="删除"><span class="glyphicon glyphicon-trash" ></span></a>
+         </td>                                                                                                      
+      </tr>                                                                                                         
+{% end %} 
+   </tbody>
+</table>
+
+
+<script>
+   $(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
+
+
+
+
+        </div>
+     </div>
+   </div>
+</div>
+
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               增加用户
+            </h4>
+         </div>
+         <div class="modal-body">  
+			<form role="form">
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="col-sm-2">角色名:</div>
+						<div class="col-sm-10">
+							<div class="form-group">
+								<input class="form-control input-sm" type="text" id="role_name">
+							</div>
+						</div> 
+						<div class="col-sm-2">备注:</div>
+						<div class="col-sm-10">
+							<div class="form-group">
+								<textarea class="form-control" rows="3" id="role_desc"></textarea>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-danger" 
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary" id="role_post_button">
+               提交更改
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+
+{% end %}

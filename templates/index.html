@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block body %}
+
+<ul  class="nav nav-tabs" id="myTab">
+{% if len(data) > 0 %}
+{% for i in data %}
+    {% for x,y in (eval(i)).items() %}
+    <li><a href="#home" data-toggle="tab">{{x}}</a></li>
+    {% end %}
+{% end %}
+{% end %}
+
+   <li><a data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-plus">增加</a></li>
+</ul>
+</div>
+<div  class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+      <div class="table-responsive">
+<table class="table table-bordered table-condensed table-hover" id="table">
+   <thead style="background: rgb(239, 228, 236) none repeat scroll 0% 0%;">
+      <tr>
+         <th>工程名字</th>
+         <th>上次状态</th>
+         <th>上次成功</th>
+         <th>上次失败</th>
+         <th>上次持续时间</th>
+         <th>立即构建</th>
+      </tr>
+   </thead>
+   <tbody>
+	{% for x in group_table %}
+          <tr>
+            <td><a href="#">{{x}}</a></td>
+		{% set value = group_table[x] %}
+	        {% for i in  tuple(eval(value)) %}
+         	   <td>{% raw i%}</td>
+	        {% end %}
+            <td><span class="glyphicon glyphicon-circle-arrow-right" style="color: rgb(255, 140, 60); font-size: 27px;"></span></td>
+          </tr>
+	{% end %}
+   </tbody>
+</table>
+     </div>
+   </div>
+</div>
+<!--
+<script>
+   $(function () {
+      $('#myTab li:eq(0) a').tab('show');
+   });
+</script>
+-->
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div   class="modal-dialog" style="width:700px">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               增加分组 
+            </h4>
+         </div>
+         <div class="modal-body">
+<form class="form-inline">
+ <table class="table table-bordered">
+   <tbody>
+    <tr>
+      <td>
+         <div class="form-group has-success has-feedback">
+            <label class="control-label">分组名称</label>
+         </div>
+      </td>
+      <td>  
+         <input type="text" class="form-control" id="Group_Name"> 
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+         <div class="form-group has-success has-feedback">
+            <label class="control-label">分组描述</label>
+         </div>
+      </td>
+      <td>
+         <input type="text" class="form-control" id="Group_Desc" >
+      </td>
+    </tr>
+
+
+  </tbody>
+ </table>
+</form>
+
+         </div>
+         <div class="modal-footer">
+            <input id="Group_btn" type="button" class="btn btn-success" value="提交">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+
+
+
+{% end %}

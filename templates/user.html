@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block body %}
+
+
+
+<div class="container-fluid">
+   <div class="row-fluid">
+     <div class="col-md-12">
+        <div class="panel panel-success">
+         <div class="panel-heading">
+	    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> 添加用户</button>
+            <blockquote class="pull-right">共有数据：{{len(user_info)}} 条</blockquote>
+         </div>
+
+
+<div class="table-responsive">
+   <table class="table table-condensed">
+      <thead>
+         <tr>
+            <th>用户列表</th>
+         </tr>
+      </thead>
+   </table>
+</div>  
+
+
+<table class="table table-bordered table-hover table-condensed">
+   <thead>
+      <tr class="success">
+            <th></th>
+            <th>登录名</th>
+            <th>手机</th>
+            <th>邮箱</th>
+            <th>加入时间</th>
+            <th>角色</th>
+            <th>用户组</th>
+            <th>是否启用</th>
+            <th>操作</th>
+      </tr>
+   </thead>
+   <tbody>
+	{% for items in user_info.values() %}
+      <tr>
+         <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
+         <td>{{''.join((eval(items))["username"])}}</td>
+         <td>{{''.join((eval(items))["tel"])}}</td>
+         <td>{{''.join((eval(items))["email"])}}</td>
+         <td>{{eval(items)["start_time"][0]}}</td>
+         <td>{{''.join((eval(items))["user_role"])}}</td>
+         <td>{{''.join((eval(items))["user_group"])}}</td>
+         <td><span class="label label-success">已启用</span></td>
+         <td>
+<a href="#" class="tooltip-show" data-toggle="tooltip" data-placement="left"  title="停用"><span class="glyphicon glyphicon-minus" ></
+span></a>
+<a href="#" class="tooltip-show" data-toggle="tooltip" data-placement="top"  title="编辑"><span class="glyphicon glyphicon-pencil" ></
+span></a>
+<a href="#" class="tooltip-show" data-toggle="tooltip" data-placement="bottom" title="修改密码"><span class="glyphicon glyphicon-th-list" ></span></a>
+<a href="#" class="tooltip-show" data-toggle="tooltip" data-placement="right"  title="删除"><span class="glyphicon glyphicon-trash" ></span></a>
+         </td>
+      </tr>
+	{% end %}
+   </tbody>
+</table>
+
+
+<script>
+   $(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
+
+
+
+
+        </div>
+     </div>
+   </div>
+</div>
+
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               增加用户
+            </h4>
+         </div>
+         <div class="modal-body">  
+            <form role="form">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="col-sm-2">用户名:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                <input class="form-control input-sm" type="text" id="username">
+                            </div>
+                        </div> 
+                        <div class="col-sm-1 hide" id="user_error">*****</div>
+                        <div class="col-sm-2">初始密码:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                <input class="form-control input-sm" type="password" id="passwd-1">
+                            </div>
+                        </div>
+			<div class="col-sm-1"></div>
+                        <div class="col-sm-2">确认密码:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                <input class="form-control input-sm" type="password" id="passwd-2">
+                            </div>
+                        </div>
+			<div class="col-sm-1"></div>
+                        <div class="col-sm-2">性别:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                    <div>
+                                        <label class="checkbox-inline">
+                                        <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="男" checked>男
+                                        </label>
+                                        <label class="checkbox-inline">
+                                        <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="女">女</label>
+                                    </div>
+                            </div>
+                        </div>                            
+			<div class="col-sm-1"></div>
+                        <div class="col-sm-2">手机:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                <input class="form-control input-sm" type="text" id="tel">
+                            </div>
+                        </div>
+			<div class="col-sm-1"></div>
+                        <div class="col-sm-2">邮箱:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                    <input class="form-control input-sm" type="text" id="email">
+                            </div>
+                        </div>
+			<div class="col-sm-1"></div>
+                        <div class="col-sm-2">角色:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                           <select class="form-control" id="user_role">
+                                                {% for items in u_role_info %}
+                                                    <option>{{''.join((eval(items))["role_name"])}}</option>
+                                                {% end %}
+                                            </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2">用户组</div>                                                           
+                        <div class="col-sm-9 ">                                                                     
+                            <div class="form-group">                                                                
+                                           <select class="form-control" id="user_group">                             
+						{% for items in u_group_info %}  
+                                                    <option>{{''.join((eval(items))["user_group_name"])}}</option>
+						{% end %}
+                                            </select>                                                               
+                            </div>                                                                                  
+                        </div>
+                        <div class="col-sm-2">备注:</div>
+                        <div class="col-sm-9 ">
+                            <div class="form-group">
+                                    <textarea class="form-control" rows="3" id="user_desc"></textarea>
+                            </div>
+                        </div>                        
+			<div class="col-sm-1"></div>
+                    </div>
+                </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-danger" 
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary" id="user_post">
+               提交更改
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+
+{% end %}

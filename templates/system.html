@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block body %}
+   <table class="table">
+      <thead>
+         <tr>
+            <th>
+                <div id="myCollapsibleExample"><a href="#site_name" data-toggle="collapse">网站名称</a></div>
+                <div  id="site_name" class="collapse container">
+                        <div class="row">
+                           <div class="col-sm-4 text-right"><a class="text-primary">网站名称:</a></div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm col-sm-8">
+                            </div>
+                                <div class="btn-group btn-xs">
+                                    <button type="button" class="btn btn-success" >保存</button>
+                                </div>
+                        </div>
+                        <p></p>
+                      </div>
+                </div>
+	    </th>
+         </tr>
+         <tr>
+            <th>
+		<div id="myCollapsibleExample"><a href="#company_name" data-toggle="collapse">公司名称</a></div>
+		<div  id="company_name" class="collapse container">
+			<div class="row">
+			  <div class="col-sm-4 text-right"><a class="text-primary">公司名称:</a></div>
+		            <div class="col-md-4">
+				<input type="text" class="form-control input-sm col-sm-8">
+		            </div>
+				<div class="btn-group btn-group">
+		  		    <button type="button" class="btn btn-success" >保存</button>
+		 		</div>
+		        </div>
+			<p></p>
+		      </div>
+		</div>
+
+	    </th>
+         </tr>
+         <tr>
+            <th>
+		<div id="myCollapsibleExample"><a href="#demo" data-toggle="collapse">备份计划</a></div>
+		<div  id="demo" class="collapse container">
+			<div class="row">
+			   <div class="col-sm-4 text-right"><span class="label label-info">时间</span></div>
+		            <div class="col-md-4">
+				<input type="text" class="form-control input-sm col-sm-8">
+		            </div>
+		        </div>
+			<p></p>
+		        <div class="row">
+		           <div class="col-sm-4 text-right"><span class="label label-info">路劲</span></div>
+		            <div class="col-md-4">
+		                <input type="text" class="form-control input-sm col-sm-8" >
+		            </div>
+		        </div>
+			<p></p>
+		        <div class="row">
+		            <div class="col-md-8 text-right">
+				<div class="btn-group btn-group">
+		  		    <button type="button" class="btn btn-warning" >立即备份</button>
+		  		    <button type="button" class="btn btn-success" >保存配置</button>
+		 		</div>
+		            </div>
+		        </div>
+			<p></p>
+		      </div>
+		</div>
+	    </th>
+         </tr>
+         <tr>
+            <th>安全设置</th>
+         </tr>
+         <tr>
+            <th>
+		<div id="myCollapsibleExample"><a href="#mail" data-toggle="collapse">邮件设置</a></div>
+		<div  id="mail" class="collapse container">
+			<div class="row">
+			   <div class="col-sm-4 text-right"><a class="text-warning">SMTP服务器:</a></div>
+		            <div class="col-md-4">
+				<input type="text" class="form-control input-sm col-sm-8" id="smtp_server">
+		            </div>
+		        </div>
+			<p></p>
+			<div class="row">
+			   <div class="col-sm-4 text-right"><a class="text-warning">测试收信邮箱:</a></div>
+		            <div class="col-md-4">
+				<input type="text" class="form-control input-sm col-sm-8" id="smtp_email">
+		            </div>
+		        </div>
+			<p></p>
+			<div class="row">
+			   <div class="col-sm-4 text-right"><a class="text-warning">邮箱账号:</a></div>
+		            <div class="col-md-4">
+				<input type="text" class="form-control input-sm col-sm-8" id="smtp_account">
+		            </div>
+		        </div>
+			<p></p>
+			<div class="row">
+			   <div class="col-sm-4 text-right"><a class="text-warning">邮箱密码:</a></div>
+		            <div class="col-md-4">
+				<input type="password" class="form-control input-sm col-sm-8" id="smtp_passwd">
+		            </div>
+		        </div>
+			<p></p>
+		        <div class="row">
+		            <div class="col-md-8 text-right">
+				<div class="btn-group">
+		  		    <button type="button" class="btn btn-warning" id="smtp_test" >测试</button>
+		  		    <button type="button" class="btn btn-success" id="smtp_save">保存</button>
+		 		</div>
+		            </div>
+		        </div>
+			<p></p>
+		      </div>
+		</div>
+
+	    </th>
+         </tr>
+	<tr>
+            <th>
+                <div id="myCollapsibleExample"><a href="#work_dir" data-toggle="collapse">工作目录</a></div>
+                <div  id="work_dir" class="collapse container">
+                        <div class="row">
+                           <div class="col-md-4 text-right"><a class="text-primary">工作目录:</a></div>
+                           <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" id="work_path">
+                           </div>
+                           <div class="col-md-4">
+                                <button type="button" class="btn btn-success" id="path_save">保存</button>
+				<a class="pull-right text-warning small">&lt;-----------本地工作目录</a>
+                           </div>
+                        </div>
+                        <p></p>
+                      </div>
+                </div>
+            </th>
+         </tr>
+
+      </thead>
+   </table>
+
+
+{% end %}

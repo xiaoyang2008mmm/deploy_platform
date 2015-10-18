@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="container-fluid">
+   <div class="row-fluid">
+      <div class="col-md-2">      
+	<div class="row">
+            <div class="col-md-1">
+		<h3><span class="label label-default label-primary" id="retu_home">返回面板</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <h3><span class="label label-default label-primary" id="status_detail">构建状态</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <h3><span class="label label-default label-primary ">修改设置</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <h3><span class="label label-default label-primary ">删除工程</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <h3><span class="label label-default label-primary ">工作空间</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+		<div class="panel panel-success">
+   		  <div class="panel-heading">
+      				<h3 class="panel-title">构建历史</h3>
+   		  </div>
+   			<div class="panel-body">
+				<ol>
+  					<li><a href="/exec_detail/">111111</a></li>
+  					<li><a href="/exec_detail/">111111</a></li>
+  					<li><a href="/exec_detail/">111111</a></li>
+  					<li><a href="/exec_detail/">111111</a></li>
+  					<li><a href="/exec_detail/">111111</a></li>
+				</ol>
+   			</div>
+		</div>
+             </div>
+        </div>
+      </div>
+
+      <div class="col-md-10">      
+                {% block edit_setting %}{% end %}
+      </div>
+
+   </div>
+</div>
+{% end %}
