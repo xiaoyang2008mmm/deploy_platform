@@ -483,3 +483,12 @@ class User_data_Handler(BaseHandler):
     '''
     def get(self):
         self.render('user_data.html') 
+class ProgrammeEdit_Handler(BaseHandler):
+    ''' 
+    具体进行修改
+    ''' 
+    def get(self):
+        data = self.db.lrange("PROJECT_NAME",0,-1)
+        host_list = get_host_list(pattern="all")
+        self.render('programmeEdit.html', data = data, host_list = host_list)
+
