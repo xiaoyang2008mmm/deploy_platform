@@ -88,7 +88,7 @@ $(document).ready(function() {
 
     ////////////////////////////////////////////////////////////
     $("#table  td span").click(function() {
-        var $G_Name = $(this).parent().parent().children("td").eq(0).text();
+        var $G_Name = $(this).parent().parent().children("td").eq(0).children("a").text();
         location.href = '/develop_choice/group_name=' + $G_Name +'/' ;
     });
 

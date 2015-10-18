@@ -20,22 +20,23 @@
    <thead style="background: rgb(239, 228, 236) none repeat scroll 0% 0%;">
       <tr>
          <th>工程名字</th>
-         <th>上次状态</th>
-         <th>上次成功</th>
-         <th>上次失败</th>
-         <th>上次持续时间</th>
-         <th>立即构建</th>
+         <th class="text-center">上次状态</th>
+         <th class="text-center">上次成功</th>
+         <th class="text-center">上次失败</th>
+         <th class="text-center">上次持续时间</th>
+         <th class="text-center">立即构建</th>
       </tr>
    </thead>
    <tbody>
 	{% for x in group_table %}
           <tr>
-	    <td><a href="/programme_edit/">{{x}}</a></td>
+	    <!--<td><a href="/programme_edit/">{{x}}</a></td>-->
+	<td style="width:300px;"><a href="/programme_edit/">{{x}}</a><div class="badge pull-right" style="background-color:red;">32</div></td>
 		{% set value = group_table[x] %}
 	        {% for i in  tuple(eval(value)) %}
-         	   <td>{% raw i%} </td>
+         	   <td class="text-center">{% raw i%} </td>
 	        {% end %}
-            <td><span class="glyphicon glyphicon-circle-arrow-right" style="color: rgb(255, 140, 60); font-size: 27px;"></span></td>
+            <td class="text-center"><span class="glyphicon glyphicon-circle-arrow-right" style="color: rgb(255, 140, 60); font-size: 27px;"></span></td>
           </tr>
 	{% end %}
    </tbody>
