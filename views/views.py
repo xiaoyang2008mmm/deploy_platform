@@ -10,7 +10,6 @@ import tornado.web
 import time , thread
 from modules.ansible_mod import *
 from modules.shell_timeout import *
-from modules.encryption import *
 from mail import Mail
 class BaseHandler(tornado.web.RequestHandler):
     @property
