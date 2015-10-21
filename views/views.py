@@ -3,6 +3,7 @@ import sys,os,subprocess
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+import bcrypt
 from auth import isadmin
 import shutil
 import tornado.web
@@ -314,10 +315,10 @@ class Adduser_post_Handler(BaseHandler):
         user_sex  = self.get_argument("user_sex")
         user_group  = self.get_argument("user_group")
 	self.request.arguments['start_time'] = [time.time()]
-	pc = prpcrypt('2#7ggzhopBvufg^b')
 	request_dict = self.request.arguments
-	e = pc.encrypt(''.join(request_dict['passwd']))
-	request_dict['passwd']="[%s]"%e
+	password = ''.join(request_dict['passwd'])
+	hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+	request_dict['passwd']="[%s]"%hashed
 	print request_dict 
 	self.db.hset("useradd_hash",username,request_dict)	
 	if self.db.hexists("usergroup_hash",user_group):
@@ -460,10 +461,9 @@ class Login_Handler(BaseHandler):
     def post(self):
 	name = self.get_argument("login_username")
 	if self.db.hexists("useradd_hash",name):
-	    pc = prpcrypt('2#7ggzhopBvufg^b')
-	    e_before = self.get_argument("login_password").encode("utf-8")
-	    e_after  = (eval((self.db.hget("useradd_hash",name)))['passwd']).strip("[]")
-            if  e_before == pc.decrypt(e_after) :
+	    password = self.get_argument("login_password").encode("utf-8")
+	    hashed  = (eval((self.db.hget("useradd_hash",name)))['passwd']).strip("[]")
+	    if bcrypt.hashpw(password, hashed) == hashed:
     		self.set_secure_cookie("user", name)
     		self.write("ok")
     		
