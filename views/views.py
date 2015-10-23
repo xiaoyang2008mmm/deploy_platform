@@ -126,7 +126,6 @@ class Post_View_Handler(BaseHandler):
         pro_desc 	= self.get_argument("pro_desc")
         git_addr 	= self.get_argument("git_addr")
         exec_shell_1 	= (self.get_argument("exec_shell_1").encode("utf-8")).split("\n")
-	print str((''.join(self.request.arguments["exec_shell_1"])).split("\n"))
         exec_shell_2 	= (self.get_argument("exec_shell_2").encode("utf-8")).split("\n")
         ssh_server 	= self.get_argument("ssh_server")
         local_path 	= self.get_argument("local_path")
@@ -139,6 +138,8 @@ class Post_View_Handler(BaseHandler):
         remote_exec_shell =  (self.get_argument("remote_exec_shell").encode("utf-8")).split("\n")
 	default_status='<a class="text-danger">暂无</a>'
 	count = 0
+	#解决首页项目次数累加,实现根据项目名查询组名
+	self.db.hset("progame_to_group",pro_name,select_group)
 	self.db.hset(select_group, pro_name, {"count":count,"config":[default_status,default_status,default_status,default_status]})
         #创建工作的根目录
 	if self.db.exists("base_path"):  
@@ -173,11 +174,17 @@ class Exec_Build_Handler(BaseHandler):
     '''
     def post(self):
 	sys_cur_dir = os.getcwd()
+
         G_Name = self.get_argument("G_Name")
+
+	group_name = self.db.hget("progame_to_group",G_Name)
+
+	dict = eval(self.db.hget(group_name, G_Name))
+
+	dict["count"] = dict["count"] + 1
+	self.db.hset(group_name, G_Name, str(dict))
         select_result = self.get_argument("select_result")
 	get_config = self.db.lrange(G_Name,0,-1)
-	#for i in get_config:
-	#    print i 
         if self.db.exists("base_path"):
             base_path = self.db.get("base_path")
         else:
@@ -239,6 +246,7 @@ class Exec_Build_Handler(BaseHandler):
 	shutil.rmtree(sys_cur_dir +"/tmp")
 	#发送邮件配置
 	smtp_info = eval(self.db.get("smtp_eamil"))
+	print smtp_info
         try:
             subject = ''.join(get_config[9])
             content = ''.join(get_config[10])
