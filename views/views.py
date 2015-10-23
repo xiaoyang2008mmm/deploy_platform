@@ -176,13 +176,6 @@ class Exec_Build_Handler(BaseHandler):
 	sys_cur_dir = os.getcwd()
 
         G_Name = self.get_argument("G_Name")
-
-	group_name = self.db.hget("progame_to_group",G_Name)
-
-	dict = eval(self.db.hget(group_name, G_Name))
-
-	dict["count"] = dict["count"] + 1
-	self.db.hset(group_name, G_Name, str(dict))
         select_result = self.get_argument("select_result")
 	get_config = self.db.lrange(G_Name,0,-1)
         if self.db.exists("base_path"):
@@ -258,6 +251,12 @@ class Exec_Build_Handler(BaseHandler):
         except:
 	    print "邮件发送失败，请检查"
 	print "操作员%s在%s客户端%s发布了%s"%(self.current_user,GetNowTime(), self.request.remote_ip, G_Name)
+	group_name = self.db.hget("progame_to_group",G_Name)
+        dict = eval(self.db.hget(group_name, G_Name))
+        dict["count"] = dict["count"] + 1
+	ico ='<span class="glyphicon  glyphicon-certificate" style="color: rgb(255, 140, 60); font-size: 27px;"></span>'
+	dict["config"] = [ select_result, ico ,time.time(),self.current_user]
+        self.db.hset(group_name, G_Name, str(dict)) 
 	self.write(G_Name)
 
 
