@@ -342,6 +342,9 @@ $(document).ready(function() {
         var $args = "test";
         if ($("#host_ip").val() == "") {
             $("#host_ip").parent().addClass("has-error");
+	    checkIP();
+        } else if ($("#host_ip").val() != "") {
+	    checkIP();
         } else if ($("#host_path").val() == "") {
             $("#host_path").parent().addClass("has-error");
         } else if ($("#host_key").val() == "") {
@@ -379,6 +382,17 @@ $(document).ready(function() {
         });
 
     }
+
+    function checkIP() {
+        var $host_ip = $("#host_ip").val();
+        var exp = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+        var reg = $host_ip.match(exp);
+        if (reg == null) {
+                alert("IP地址不合法！");
+        }  
+    }
+
+
 
     //////////////////////////////////////////////////////
 });
