@@ -66,15 +66,6 @@ $(document).ready(function() {
                 required: true,
                 minlength: 2,
                 maxlength: 20,
-		remote:{
-			url:"/test_remote/", 
-			type:"post",
-		   },
-
-            },
-            host_ip: {
-                required: true,
-                maxlength: 15,
 
             }
         },
@@ -84,15 +75,10 @@ $(document).ready(function() {
                 minlength: "最少2位",
                 maxlength: "最多20位",
 
-            },
-            host_ip: {
-                required: "请填写主机IP地址",
-                maxlength: "IPv4地址最多15位",
-
             }
-        },
+        }
     });
-    });
+});
 </script>
 
 
