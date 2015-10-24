@@ -509,7 +509,7 @@ class Ssh_add_Handler(BaseHandler):
     def post(self):
         host_ip = self.get_argument("host_ip")
         if self.get_argument("args") == "test":
-	     self.write("测试ssh连接")
+	     self.write(test_ping(host_ip))
 	else:
 	     try:
 	         self.db.hset("ansible_host", host_ip, self.request.arguments)

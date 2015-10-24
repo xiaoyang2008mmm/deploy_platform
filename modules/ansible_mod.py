@@ -52,3 +52,19 @@ def shell_scripts(script,host):
 
 
 #print shell_scripts("/root/deploy_platform/tmp/after.sh","127.0.0.1")
+
+
+def test_ping(host):
+    runner = ansible.runner.Runner(
+           module_name='ping',
+           module_args='',
+           pattern= host,
+           forks=10
+        )
+    datastructure = runner.run()
+    if datastructure["contacted"]:
+         data="主机%sssh连接OK"%host
+    else:
+         data="主机%s通信有问题,请检查"%host
+    return  data
+##############################################################
