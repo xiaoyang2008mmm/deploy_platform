@@ -510,3 +510,10 @@ class Ssh_add_Handler(BaseHandler):
         G_Name = self.get_argument("host_label")
 	print self.request.arguments
 	self.write(G_Name)
+class Test_remote_Handler(BaseHandler):
+    '''
+    测试表单验证reomte参数
+    '''
+    def post(self,host_label):
+	print self.request.arguments
+	self.write("this is ok")
