@@ -2,19 +2,19 @@
 {% block body %}
 
 
-<form role="form">
 <div class="container">
 <div class="row">
+    <form id="ssh_form">
 	   <h3><div class="col-sm-4 text-right"><span class="label label-info">主机名称</span></div></h3>
             <div class="col-md-4">
-		<input type="text" class="form-control input-sm col-sm-8" id="host_label">
+		<input type="text" class="form-control input-sm col-sm-8" id="host_label" name="host_label">
             </div>
         </div>
 	<p></p>
         <div class="row">
            <h3><div class="col-sm-4 text-right"><span class="label label-success">主机地址</span></div></h3>
             <div class="col-md-4">
-                <input type="text" class="form-control input-sm col-sm-8" id="host_ip">
+                <input type="text" class="form-control input-sm col-sm-8" id="host_ip" name="host_ip">
             </div>
         </div>
 	<p></p>
@@ -55,10 +55,41 @@
             </div>
         </div>
 	<p></p>
-      </div>
+    </form>
+  </div>
 </div>
+<script>
+$(document).ready(function() {
+    $("#ssh_form").validate({
+        rules: {
+            host_label: {
+                required: true,
+                minlength: 2,
+                maxlength: 20,
 
-</form>
+            },
+            host_ip: {
+                required: true,
+                maxlength: 15,
+
+            }
+        },
+        messages: {
+            host_label: {
+                required: "请填写主机别名",
+                minlength: "最少2位",
+                maxlength: "最多20位",
+
+            },
+            host_ip: {
+                required: "请填写主机IP地址",
+                maxlength: "IPv4地址最多15位",
+
+            }
+        },
+    });
+    });
+</script>
 
 
 {% end %}

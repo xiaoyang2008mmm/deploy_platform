@@ -508,4 +508,5 @@ class Ssh_add_Handler(BaseHandler):
     '''
     def post(self):
         G_Name = self.get_argument("host_label")
+	print self.request.arguments
 	self.write(G_Name)

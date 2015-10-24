@@ -46,7 +46,6 @@ $(document).ready(function() {
     });
 
     ///////////////////////////////////////////////////////////////
-
     $("#Group_btn").click(function() {
         if ($("#Group_Name").val() == "") {
             alert("组名字不能为空");
@@ -72,9 +71,9 @@ $(document).ready(function() {
         }
     });
 
-    function _getCurrentGroup(){
-        for(var i = 0; i < $groupTabs.size() -1; i++){
-            if($groupTabs.eq(i).text() == localStorage.getItem('key_group_name')){
+    function _getCurrentGroup() {
+        for (var i = 0; i < $groupTabs.size() - 1; i++) {
+            if ($groupTabs.eq(i).text() == localStorage.getItem('key_group_name')) {
                 return i
             }
         }
@@ -85,11 +84,10 @@ $(document).ready(function() {
         $groupTabs.eq(_getCurrentGroup()).find('a').tab('show');
     });
 
-
     ////////////////////////////////////////////////////////////
     $("#table  td span").click(function() {
         var $G_Name = $(this).parent().parent().children("td").eq(0).children("a").text();
-        location.href = '/develop_choice/group_name=' + $G_Name +'/' ;
+        location.href = '/develop_choice/group_name=' + $G_Name + '/';
     });
 
     /////////////////////////////////////////////////////////////
@@ -98,25 +96,24 @@ $(document).ready(function() {
 
     });
     ///////////////////////////////////////////////////////////
-
     $("#deve_sure").click(function() {
         var $G_Name = $("#deve_name").text();
-	var $select_id =$('#git_list option:selected').text();
-	var $condition = $("#select_condition option:selected").val();
-	if ($select_id ==""){
-	    alert("请选择项目参数!!!!!");
-	    }else{
-		var $select_result =git_args($condition,$select_id);
-        	post_func($G_Name,$select_result);
-	         }
+        var $select_id = $('#git_list option:selected').text();
+        var $condition = $("#select_condition option:selected").val();
+        if ($select_id == "") {
+            alert("请选择项目参数!!!!!");
+        } else {
+            var $select_result = git_args($condition, $select_id);
+            post_func($G_Name, $select_result);
+        }
     });
 
-    function post_func($G_Name,$select_result) {
+    function post_func($G_Name, $select_result) {
         var msg = "确定要立刻构建吗?";
         if (confirm(msg) == true) {
             $.post("/exec_build/", {
                 G_Name: $G_Name,
-		select_result: $select_result,
+                select_result: $select_result,
             },
             function(data) {
                 alert(data);
@@ -128,34 +125,24 @@ $(document).ready(function() {
 
     }
 
-    function git_args($condition,$select_id){
-	var data ;
-    switch ($condition)
-      {
-      case "git_version":
-	//alert((($select_id).split("-"))[0]);
-	data=(($select_id).split("-"))[0] ;
-        break;
-      case "git_tag":
-	//alert((($select_id).split(" "))[0]);
-	data=(($select_id).split(" "))[0];
-        break;
-      case "git_branch":
-	//alert(($select_id).replace("remotes/origin/",""));
-	data=($select_id).replace("remotes/origin/","");
-        break;
-      }
-	return data;
+    function git_args($condition, $select_id) {
+        var data;
+        switch ($condition) {
+        case "git_version":
+            //alert((($select_id).split("-"))[0]);
+            data = (($select_id).split("-"))[0];
+            break;
+        case "git_tag":
+            //alert((($select_id).split(" "))[0]);
+            data = (($select_id).split(" "))[0];
+            break;
+        case "git_branch":
+            //alert(($select_id).replace("remotes/origin/",""));
+            data = ($select_id).replace("remotes/origin/", "");
+            break;
+        }
+        return data;
     }
-
-
-
-
-
-
-
-
-
 
     //////////////////////////////////////////////////////////////
     /*view页面span图标点击事件*/
@@ -250,8 +237,9 @@ $(document).ready(function() {
     });
     //////////////////////////////////////////////////////////////////////
     $("#user_post").click(function() {
-	if ($("#username").val() ==""){alert("用户名不能为空!!");}
-         else if ($("#passwd-1").val() != $("#passwd-2").val()) {
+        if ($("#username").val() == "") {
+            alert("用户名不能为空!!");
+        } else if ($("#passwd-1").val() != $("#passwd-2").val()) {
             alert("密码不一致");
         } else {
             $.post("/adduser_post/", {
@@ -327,38 +315,34 @@ $(document).ready(function() {
         });
         location.href = '/system/';
     });
-/////////////////////////////////////////////////////////////
-
+    /////////////////////////////////////////////////////////////
     $("#select_condition").change(function() {
-	var $condition = $("#select_condition option:selected").val();
-	var $G_Name = $("#deve_name").text();
-	$("#git_list").empty();
+        var $condition = $("#select_condition option:selected").val();
+        var $G_Name = $("#deve_name").text();
+        $("#git_list").empty();
         $.post("/get_git_info/", {
             condition: $condition,
-	    G_Name: $G_Name,
+            G_Name: $G_Name,
         },
         function(data) {
-		for (var i=0;i<(data.split("\n")).length;i++)
-		{
-		    $("#git_list").append("<option>"+(data.split("\n"))[i] +"</option>");
-		}
+            for (var i = 0; i < (data.split("\n")).length; i++) {
+                $("#git_list").append("<option>" + (data.split("\n"))[i] + "</option>");
+            }
         });
-    }); 
-
-
-//////////////////////////////////////////////////////////
-
-  $("#base_search").change(function(){
-        var $search_list = $("#base_search").val();
-    alert($search_list);
-  });
-//////////////////////////////////////////////////////////
-///提交ssh信息
-    $("#host_test").click(function() {
-	ssh_post();
-	$("input").val("");  //清空表单数据，防止重复提交
     });
-	function ssh_post(){
+
+    //////////////////////////////////////////////////////////
+    $("#base_search").change(function() {
+        var $search_list = $("#base_search").val();
+        alert($search_list);
+    });
+    //////////////////////////////////////////////////////////
+    ///提交ssh信息
+    $("#host_test").click(function() {
+	 ssh_post();
+        $("input").val(""); //清空表单数据，防止重复提交
+    });
+    function ssh_post() {
         var $host_label = $("#host_label").val();
         var $host_ip = $("#host_ip").val();
         var $host_path = $("#host_path").val();
@@ -366,22 +350,21 @@ $(document).ready(function() {
         var $host_port = $("#host_port").val();
         var $host_time = $("#host_time").val();
         $.post("/ssh_add/", {
-            host_label	: $host_label,
-            host_ip	: $host_ip,
-            host_path	: $host_path,
-            host_key	:$host_key,
-            host_port	: $host_port,
-            host_time	: $host_time,
+            host_label: $host_label,
+            host_ip: $host_ip,
+            host_path: $host_path,
+            host_key: $host_key,
+            host_port: $host_port,
+            host_time: $host_time,
         },
         function(data) {
             alert(data);
         });
-	
-	}
 
+    }
+   
 
-
-
-
+    /////////////////////////////////////////////////
+    //ssh表单验证
 
 });
