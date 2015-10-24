@@ -507,13 +507,12 @@ class Ssh_add_Handler(BaseHandler):
    新增加ssh机器 
     '''
     def post(self):
-        G_Name = self.get_argument("host_label")
-	print self.request.arguments
-	self.write(G_Name)
-class Test_remote_Handler(BaseHandler):
-    '''
-    测试表单验证reomte参数
-    '''
-    def post(self,host_label):
-	print self.request.arguments
-	self.write("this is ok")
+        host_ip = self.get_argument("host_ip")
+        if self.get_argument("args") == "test":
+	     self.write("测试ssh连接")
+	else:
+	     try:
+	         self.db.hset("ansible_host", host_ip, self.request.arguments)
+	         self.write('保存成功')
+	     except:
+	         self.write('redis连接失败')

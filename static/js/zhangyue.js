@@ -339,10 +339,16 @@ $(document).ready(function() {
     //////////////////////////////////////////////////////////
     ///提交ssh信息
     $("#host_test").click(function() {
-	 ssh_post();
+	var $args ="test";
+	 ssh_post($args);
         $("input").val(""); //清空表单数据，防止重复提交
     });
-    function ssh_post() {
+    $("#host_save").click(function() {
+	var $args ="save";
+         ssh_post($args);
+        $("input").val(""); //清空表单数据，防止重复提交
+    });
+    function ssh_post($args) {
         var $host_label = $("#host_label").val();
         var $host_ip = $("#host_ip").val();
         var $host_path = $("#host_path").val();
@@ -356,6 +362,7 @@ $(document).ready(function() {
             host_key: $host_key,
             host_port: $host_port,
             host_time: $host_time,
+	    args: $args,
         },
         function(data) {
             alert(data);
