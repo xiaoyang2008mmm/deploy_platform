@@ -339,13 +339,23 @@ $(document).ready(function() {
     //////////////////////////////////////////////////////////
     ///提交ssh信息
     $("#host_test").click(function() {
-	var $args ="test";
-	 ssh_post($args);
-        $("input").val(""); //清空表单数据，防止重复提交
+        var $args = "test";
+        if ($("#host_ip").val() == "") {
+            $("#host_ip").parent().addClass("has-error");
+        } else if ($("#host_path").val() == "") {
+            $("#host_path").parent().addClass("has-error");
+        } else if ($("#host_key").val() == "") {
+            $("#host_key").parent().addClass("has-error");
+        } else if ($("#host_port").val() == "") {
+            $("#host_port").parent().addClass("has-error");
+        } else {
+            ssh_post($args);
+            $("input").val(""); //清空表单数据，防止重复提交
+        };
     });
     $("#host_save").click(function() {
-	var $args ="save";
-         ssh_post($args);
+        var $args = "save";
+        ssh_post($args);
         $("input").val(""); //清空表单数据，防止重复提交
     });
     function ssh_post($args) {
@@ -362,17 +372,13 @@ $(document).ready(function() {
             host_key: $host_key,
             host_port: $host_port,
             host_time: $host_time,
-	    args: $args,
+            args: $args,
         },
         function(data) {
             alert(data);
         });
 
     }
-   
 
-
-    /////////////////////////////////////////////////
-    //ssh表单验证
-
+    //////////////////////////////////////////////////////
 });
