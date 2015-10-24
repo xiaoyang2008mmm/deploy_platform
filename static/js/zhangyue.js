@@ -353,6 +353,31 @@ $(document).ready(function() {
     alert($search_list);
   });
 //////////////////////////////////////////////////////////
+///提交ssh信息
+    $("#host_test").click(function() {
+	ssh_post();
+	$("input").val("");  //清空表单数据，防止重复提交
+    });
+	function ssh_post(){
+        var $host_label = $("#host_label").val();
+        var $host_ip = $("#host_ip").val();
+        var $host_path = $("#host_path").val();
+        var $host_key = $("#host_key").val();
+        var $host_port = $("#host_port").val();
+        var $host_time = $("#host_time").val();
+        $.post("/ssh_add/", {
+            host_label	: $host_label,
+            host_ip	: $host_ip,
+            host_path	: $host_path,
+            host_key	:$host_key,
+            host_port	: $host_port,
+            host_time	: $host_time,
+        },
+        function(data) {
+            alert(data);
+        });
+	
+	}
 
 
 

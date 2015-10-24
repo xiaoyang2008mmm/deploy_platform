@@ -254,7 +254,7 @@ class Exec_Build_Handler(BaseHandler):
 	group_name = self.db.hget("progame_to_group",G_Name)
         dict = eval(self.db.hget(group_name, G_Name))
         dict["count"] = dict["count"] + 1
-	ico ='<span class="glyphicon  glyphicon-certificate" style="color: rgb(255, 140, 60); font-size: 27px;"></span>'
+	ico ='<img src="/static/image/blue.png" width="30" height="30" style="color: rgb(255, 140, 60); font-size: 27px;">'
 	dict["config"] = [ select_result, ico ,time.time(),self.current_user]
         self.db.hset(group_name, G_Name, str(dict)) 
 	self.write(G_Name)
@@ -499,3 +499,13 @@ class ProgrammeEdit_Handler(BaseHandler):
         host_list = get_host_list(pattern="all")
         self.render('programmeEdit.html', data = data, host_list = host_list)
 
+
+
+
+class Ssh_add_Handler(BaseHandler):
+    '''
+   新增加ssh机器 
+    '''
+    def post(self):
+        G_Name = self.get_argument("host_label")
+	self.write(G_Name)
