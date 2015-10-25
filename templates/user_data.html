@@ -8,123 +8,99 @@
         用户资料修改
     </h4>
 </div>
-        <form role="form">
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="col-sm-2">
-                        用户名:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <input class="form-control input-sm" type="text" id="username">
-                        </div>
-                    </div>
-                    <div class="col-sm-1 hide" id="user_error">
-                        *****
-                    </div>
-                    <div class="col-sm-2">
-                        初始密码:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <input class="form-control input-sm" type="password" id="passwd-1">
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-2">
-                        确认密码:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <input class="form-control input-sm" type="password" id="passwd-2">
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-2">
-                        手机:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <input class="form-control input-sm" type="text" id="tel">
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-2">
-                        邮箱:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <input class="form-control input-sm" type="text" id="email">
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-2">
-                        角色:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <select class="form-control" id="user_role">
-                                <option>
-                                    dwqdwqwd
-                                </option>
-                                <option>
-                                    dwqdwqwd
-                                </option>
-                                <option>
-                                    dwqdwqwd
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-                    <div class="col-sm-2">
-                        用户组
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <select class="form-control" id="user_group">
-                                <option>
-                                    dwqdwqwd
-                                </option>
-                                <option>
-                                    dwqdwqwd
-                                </option>
-                                <option>
-                                    dwqdwqwd
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        备注:
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" id="user_desc">
-                            </textarea>
-                        </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-
-		    <div class="col-sm-2"></div>
-                    <div class="col-sm-9 ">
-    			<div class="modal-footer">
-        		<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
-       			<button type="button" class="btn btn-primary" id="user_post">提交更改</button>
-    		    </div>
-                    </div>
-                    <div class="col-sm-1">
-                    </div>
-
-
+<form role="form">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-sm-2">
+                用户名:
+            </div>
+            <div class="col-sm-9 ">
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" value="{{(Info['username'])[0]}}">
                 </div>
             </div>
-        </form>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-2">
+                手机:
+            </div>
+            <div class="col-sm-9 ">
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" value="{{(Info['tel'])[0]}}">
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-2">
+                邮箱:
+            </div>
+            <div class="col-sm-9 ">
+                <div class="form-group">
+                    <input class="form-control input-lg" type="text" value="{{(Info['email'])[0]}}">
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-2">
+                角色:
+            </div>
+            <div class="col-lg-9 ">
+                <div class="form-group">
+                    <select class="form-control">
+                        <option>
+                            {{(Info['user_role'])[0]}}
+                        </option>
+                                                {% for items in u_role_info %}
+                                                    <option>{{''.join((eval(items))["role_name"])}}</option>
+                                                {% end %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-2">
+                用户组
+            </div>
+            <div class="col-sm-9 ">
+                <div class="form-group">
+                    <select class="form-control">
+                        <option>
+                           {{(Info['user_group'])[0]}} 
+                        </option>
+                                                {% for items in u_group_info %}
+                                                    <option>{{''.join((eval(items))["user_group_name"])}}</option>
+                                                {% end %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                备注:
+            </div>
+            <div class="col-lg-9 ">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3">{{(Info['user_desc'])[0]}}
+                    </textarea>
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-9 ">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="user_post">
+                        提交更改
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+        </div>
+    </div>
+</form>
+
 
 {% end %}

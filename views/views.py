@@ -488,8 +488,16 @@ class User_data_Handler(BaseHandler):
     '''
     用户资料修改
     '''
-    def get(self):
-        self.render('user_data.html') 
+    def get(self, user):
+
+        u_group_info = self.db.lrange("user_group",0,-1)
+        u_role_info = self.db.lrange("user_role",0,-1)
+ 	Info = eval(self.db.hget("useradd_hash",user))	
+        _dict = { "Info" : Info ,"u_role_info" : u_role_info ,"u_group_info" : u_group_info}
+        self.render('user_data.html' ,**_dict)
+
+
+
 class ProgrammeEdit_Handler(BaseHandler):
     ''' 
     具体进行修改
