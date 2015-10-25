@@ -339,6 +339,7 @@ $(document).ready(function() {
     //////////////////////////////////////////////////////////
     ///提交ssh信息
     $("#host_test").click(function() {
+        var $args = "test";
         if ($("#host_ip").val() == "") {
             $("#host_ip").parent().addClass("has-error");
         } else if ($("#host_path").val() == "") {
@@ -348,13 +349,22 @@ $(document).ready(function() {
         } else if ($("#host_port").val() == "") {
             $("#host_port").parent().addClass("has-error");
         } else if ($("#host_ip").val() != "") {
-            checkIP();
+            checkIP($args);
         };
     });
     $("#host_save").click(function() {
         var $args = "save";
-        ssh_post($args);
-        $("input").val(""); //清空表单数据，防止重复提交
+        if ($("#host_ip").val() == "") {
+            $("#host_ip").parent().addClass("has-error");
+        } else if ($("#host_path").val() == "") {
+            $("#host_path").parent().addClass("has-error");
+        } else if ($("#host_key").val() == "") {
+            $("#host_key").parent().addClass("has-error");
+        } else if ($("#host_port").val() == "") {
+            $("#host_port").parent().addClass("has-error");
+        } else if ($("#host_ip").val() != "") {
+            checkIP($args);
+        };
     });
     function ssh_post($args) {
         var $host_label = $("#host_label").val();
@@ -373,13 +383,20 @@ $(document).ready(function() {
             args: $args,
         },
         function(data) {
-            alert(data);
+		if( data=="exist"){
+			$('#ssh_error').removeClass("hide");
+			$("#ssh_error p").text("SSH 主机已经存在,请检查填写内容");
+		}else if( data=="success"){
+            		alert("保存成功");
+			$("input").val(""); //清空表单数据，防止重复提交
+		} else{
+            		alert(data);
+			}
         });
 
     }
 
-    function checkIP() {
-	var $args = "test";
+    function checkIP($args) {
         var $host_ip = $("#host_ip").val();
         var exp = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
         var reg = $host_ip.match(exp);
@@ -388,7 +405,6 @@ $(document).ready(function() {
         }else{
 		alert("IP地址合法！"); 
 		ssh_post($args);
-		$("input").val(""); //清空表单数据，防止重复提交
 	} 
     }
 

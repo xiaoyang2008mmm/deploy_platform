@@ -522,7 +522,10 @@ class Ssh_add_Handler(BaseHandler):
 	     self.write(test_ping(host_ip))
 	else:
 	     try:
-	         self.db.hset("ansible_host", host_ip, self.request.arguments)
-	         self.write('保存成功')
+		if self.db.hexists("ansible_host", host_ip):
+	             self.write('exist')  #js要根据exist做判断
+		else:
+	             self.db.hset("ansible_host", host_ip, self.request.arguments)
+	             self.write('success')
 	     except:
 	         self.write('redis连接失败')
