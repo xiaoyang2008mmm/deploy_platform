@@ -67,12 +67,10 @@
   <div class="col-sm-10">
 	  <form role="form">
 	    <div class="form-group">
-         <textarea class="form-control" rows="5" id="exec_shell_1">
-           {% for i in list(eval(Edit_config[2])) %}
-		{{i.replace("\n","")}}
-	   {% end %}
+         <textarea class="form-control" rows="5" id="exec_shell_1"  required>{% for i in list(eval(Edit_config[2]))%}
+	          {{i}}{% end %}
+        </textarea>
 
-	</textarea>
       </div>
     </form>
 </div>
@@ -120,7 +118,9 @@
   <div class="row">
      <div class="col-sm-2"><span class="label label-danger">执行命令</span></div>
       <div class="col-md-8">
-		<textarea class="form-control" rows="3" id="remote_exec_shell">{{Edit_config[-1]}}</textarea>
+	<textarea class="form-control" rows="3" id="remote_exec_shell">{% for i in list(eval(Edit_config[-1]))%}
+		{{i}}{% end %}
+	</textarea>
       </div>
   </div>
 	<p></p>
@@ -130,7 +130,9 @@
   <div class="col-sm-10">
     <form role="form">
       <div class="form-group">
-         <textarea class="form-control" rows="3" id="exec_shell_2">{{Edit_config[3]}}</textarea>
+         <textarea class="form-control" rows="3" id="exec_shell_2">{% for i in list(eval(Edit_config[3]))%}
+		{{i}}{% end %}
+	</textarea>
       </div>
     </form>
 </div>
@@ -156,7 +158,9 @@
   <div class="row">
      <div class="col-sm-1"><span class="label label-info">发送内容</span></div>
       <div class="col-md-9">
-          <textarea class="form-control" rows="3" id="mail_data">{{Edit_config[10]}}</textarea>
+          <textarea class="form-control" rows="3" id="mail_data">{% for i in list(eval(Edit_config[10]))%}
+		{{i}}{% end %}
+	  </textarea>
       </div>
   </div>
   <p></p>
