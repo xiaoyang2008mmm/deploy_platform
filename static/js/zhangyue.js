@@ -339,21 +339,16 @@ $(document).ready(function() {
     //////////////////////////////////////////////////////////
     ///提交ssh信息
     $("#host_test").click(function() {
-        var $args = "test";
         if ($("#host_ip").val() == "") {
             $("#host_ip").parent().addClass("has-error");
-	    checkIP();
-        } else if ($("#host_ip").val() != "") {
-	    checkIP();
         } else if ($("#host_path").val() == "") {
             $("#host_path").parent().addClass("has-error");
         } else if ($("#host_key").val() == "") {
             $("#host_key").parent().addClass("has-error");
         } else if ($("#host_port").val() == "") {
             $("#host_port").parent().addClass("has-error");
-        } else {
-            ssh_post($args);
-            $("input").val(""); //清空表单数据，防止重复提交
+        } else if ($("#host_ip").val() != "") {
+            checkIP();
         };
     });
     $("#host_save").click(function() {
@@ -384,12 +379,17 @@ $(document).ready(function() {
     }
 
     function checkIP() {
+	var $args = "test";
         var $host_ip = $("#host_ip").val();
         var exp = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
         var reg = $host_ip.match(exp);
         if (reg == null) {
                 alert("IP地址不合法！");
-        }  
+        }else{
+		alert("IP地址合法！"); 
+		ssh_post($args);
+		$("input").val(""); //清空表单数据，防止重复提交
+	} 
     }
 
 
