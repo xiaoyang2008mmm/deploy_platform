@@ -31,8 +31,7 @@
 	{% for x in group_table %}
           <tr>
 		{% set value = group_table[x] %}
-	    <!--<td><a href="/programme_edit/">{{x}}</a></td>-->
-	<td style="width:300px;"><a href="/programme_edit/">{{x}}</a><div class="badge pull-right" style="background-color:red;">{{(eval(value))["count"]}}</div></td>
+	<td style="width:300px;"><a href="/programme_edit/programme_name={{x}}/">{{x}}</a><div class="badge pull-right" style="background-color:red;">{{(eval(value))["count"]}}</div></td>
 
                 {% set list_config= (eval(value))["config"] %}
                 {% for i in  list_config %}

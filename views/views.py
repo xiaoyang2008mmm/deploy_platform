@@ -494,10 +494,12 @@ class ProgrammeEdit_Handler(BaseHandler):
     ''' 
     具体进行修改
     ''' 
-    def get(self):
+    def get(self,programme_name):
+	Edit_config = self.db.lrange(programme_name,0,-1)
         data = self.db.lrange("PROJECT_NAME",0,-1)
         host_list = get_host_list(pattern="all")
-        self.render('programmeEdit.html', data = data, host_list = host_list)
+	_dict = { "data" : data ,'host_list':host_list ,"Edit_config" :Edit_config }
+        self.render('programmeEdit.html' ,**_dict)
 
 
 

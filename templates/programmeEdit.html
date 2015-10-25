@@ -1,171 +1,177 @@
 {% extends "develop.html" %}
 {% block edit_setting %}
-      <div class="col-sm-1">项目名称</div>
-        <div class="col-sm-11">
-          <form class="form-horizontal" id="form1" action="#" role="form">
-            <div class="form-group">
-              <div class="col-sm-5">
-                <input type="text" class="form-control input-sm" check-type="required" required-message="项目名称唯一"  id="pro_name">
-              </div>
-             </div>
-          </form>
-      </div>      
-      <div class="col-sm-1">选择分组</div>
-        <div class="col-sm-11">
-          <form class="form-horizontal" action="#" role="form">
-            <div class="form-group">
-              <div class="col-sm-5">
-                <select class="form-control" id="select_group">
-                        {% if len(data) > 0 %}
-                        {% for i in data %}
-                            {% for x,y in (eval(i)).items() %}
-                                <option>{{x}}</option>
-                            {% end %}
-                        {% end %}
-                        {% else %}
-                                <option>暂无分组，请在首页添加分组</option>
-                        {% end %}
-                </select>
-              </div>
-             </div>
-          </form>
+<div class="col-sm-1">项目名称</div>
+  <div class="col-sm-11">
+    <form class="form-horizontal" id="form1" action="#" role="form">
+      <div class="form-group">
+        <div class="col-sm-5">
+          <input type="text" class="form-control input-sm" check-type="required" required-message="项目名称唯一"  id="pro_name" value={{Edit_config[0]}}>
+        </div>
+       </div>
+    </form>
+</div>      
+<div class="col-sm-1">选择分组</div>
+  <div class="col-sm-11">
+    <form class="form-horizontal" action="#" role="form">
+      <div class="form-group">
+        <div class="col-sm-5">
+          <select class="form-control" id="select_group">
+                  {% if len(data) > 0 %}
+                  {% for i in data %}
+                      {% for x,y in (eval(i)).items() %}
+                          <option>{{x}}</option>
+                      {% end %}
+                  {% end %}
+                  {% else %}
+                          <option>暂无分组，请在首页添加分组</option>
+                  {% end %}
+          </select>
+        </div>
+       </div>
+    </form>
+</div>
+<div class="col-sm-1">描述</div>
+  <div class="col-sm-11">
+    <form class="form-horizontal"  action="#" role="form">
+      <div class="form-group">
+        <div class="col-sm-7">
+          <input type="text" class="form-control input-sm" id="pro_desc">
+       </div>
       </div>
-      <div class="col-sm-1">描述</div>
-        <div class="col-sm-11">
-          <form class="form-horizontal"  action="#" role="form">
-            <div class="form-group">
-              <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" id="pro_desc">
-             </div>
-            </div>
-          </form>
-      </div>
-      <div class="col-sm-1">git地址</div>
-        <div class="col-sm-11">
-          <form class="form-horizontal">
-            <div class="form-group">
-              <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" id="git_addr">
-             </div>
-              <div class="col-sm-5">
+    </form>
+</div>
+<div class="col-sm-1">git地址</div>
+  <div class="col-sm-11">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-7">
+          <input type="text" class="form-control input-sm" id="git_addr" value={{Edit_config[1]}}>
+       </div>
+        <div class="col-sm-5">
 		<a class="text-danger" style="text-decoration:none;" id="git_message"></a>
-             </div>
-            </div>
-          </form>
+       </div>
       </div>
-      <div class="col-sm-1">构建准备</div>
-        <div class="col-sm-12">
-          <form class="form-horizontal">
-            <div class="form-group">
-              <div class="col-sm-11">
+    </form>
+</div>
+<div class="col-sm-1">构建准备</div>
+  <div class="col-sm-12">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-11">
 		<hr style="height:10px;border:none;border-top:10px groove skyblue;" />
-             </div>
-            </div>
-          </form>
+       </div>
       </div>
-      <div class="col-sm-1">执行shell</div>
-        <div class="col-sm-10">
+    </form>
+</div>
+<div class="col-sm-1">执行shell</div>
+  <div class="col-sm-10">
 	  <form role="form">
-  	    <div class="form-group">
-               <textarea class="form-control" rows="3" id="exec_shell_1"></textarea>
-            </div>
-          </form>
+	    <div class="form-group">
+         <textarea class="form-control" rows="5" id="exec_shell_1">
+           {% for i in list(eval(Edit_config[2])) %}
+		{{i.replace("\n","")}}
+	   {% end %}
+
+	</textarea>
       </div>
-      <div class="col-sm-10">通过SSH发送文件或者执行shell命令</div>
-      <div class="col-sm-3"></div>
-        <div class="col-sm-9">
+    </form>
+</div>
+<div class="col-sm-10">通过SSH发送文件或者执行shell命令</div>
+<div class="col-sm-3"></div>
+  <div class="col-sm-9">
 	<div class="row">
 	 <div class="col-sm-2"><span class="label label-danger">SSH服务器</span></div>
-          <form class="form-horizontal">
-            <div class="form-group">
-              <div class="col-sm-8" id="ssh_server">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-8" id="ssh_server">
 		<select class="form-control">
+   		<option>{{Edit_config[4]}}</option>
 		{% if len(host_list) > 0 %}
 		{% for host in host_list%}
-         		<option>{{host}}</option>
+   		<option>{{host}}</option>
 		{% end %}
 		{% end %}
-      		</select>
-              </div>
-             </div>
-           </form>
+		</select>
+        </div>
+       </div>
+     </form>
 	 </div>
-        <div class="row">
+  <div class="row">
 	   <div class="col-sm-2"><span class="label label-danger">源文件路劲</span></div>
-            <div class="col-md-8">
-		<input type="text" class="form-control input-sm col-sm-8" placeholder="/data/" id="local_path">
-            </div>
-        </div>
-	<p></p>
-        <div class="row">
-           <div class="col-sm-2"><span class="label label-danger">移除路劲</span></div>
-            <div class="col-md-8">
-                <input type="text" class="form-control input-sm col-sm-8" placeholder="/data/" id="remove_path">
-            </div>
-        </div>
-	<p></p>
-        <div class="row">
-           <div class="col-sm-2"><span class="label label-danger">远端路劲</span></div>
-            <div class="col-md-8">
-                <input type="text" class="form-control input-sm col-sm-8" placeholder="/data/" id="remote_path">
-            </div>
-        </div>
-	<p></p>
-        <div class="row">
-           <div class="col-sm-2"><span class="label label-danger">执行命令</span></div>
-            <div class="col-md-8">
-		<textarea class="form-control" rows="3" id="remote_exec_shell"></textarea>
-            </div>
-        </div>
-	<p></p>
+      <div class="col-md-8">
+	<input type="text" class="form-control input-sm col-sm-8" placeholder="/data/" id="local_path" value="{{Edit_config[6]}}">
       </div>
+  </div>
+	<p></p>
+  <div class="row">
+     <div class="col-sm-2"><span class="label label-danger">移除路劲</span></div>
+      <div class="col-md-8">
+          <input type="text" class="form-control input-sm col-sm-8" placeholder="/data/" id="remove_path" value="{{Edit_config[7]}}">
+      </div>
+  </div>
+	<p></p>
+  <div class="row">
+     <div class="col-sm-2"><span class="label label-danger">远端路劲</span></div>
+      <div class="col-md-8">
+          <input type="text" class="form-control input-sm col-sm-8" placeholder="/data/" id="remote_path" value="{{Edit_config[5]}}">
+      </div>
+  </div>
+	<p></p>
+  <div class="row">
+     <div class="col-sm-2"><span class="label label-danger">执行命令</span></div>
+      <div class="col-md-8">
+		<textarea class="form-control" rows="3" id="remote_exec_shell">{{Edit_config[-1]}}</textarea>
+      </div>
+  </div>
+	<p></p>
+</div>
 	
-      <div class="col-sm-1">执行shell</div>
-        <div class="col-sm-10">
-          <form role="form">
-            <div class="form-group">
-               <textarea class="form-control" rows="3" id="exec_shell_2"></textarea>
-            </div>
-          </form>
+<div class="col-sm-1">执行shell</div>
+  <div class="col-sm-10">
+    <form role="form">
+      <div class="form-group">
+         <textarea class="form-control" rows="3" id="exec_shell_2">{{Edit_config[3]}}</textarea>
       </div>
-        <div class="col-sm-5">构建后操作</div>
-        <div class="col-sm-10">
-        <hr style="height:10px;border:none;border-top:10px groove skyblue;" />
-        </div>
-        <div class="col-sm-10">
-        <div class="row">
-           <div class="col-sm-1"><span class="label label-info">邮箱名称</span></div>
-            <div class="col-md-6">
-                <input type="text" class="form-control input-sm" placeholder="test@163.com" id="mail_name">
-            </div>
-        </div>
-        <p></p>
-        <div class="row">
-           <div class="col-sm-1"><span class="label label-info">发送主题</span></div>
-            <div class="col-md-6">
-                <input type="text" class="form-control input-sm" placeholder="test@163.com" id="mail_subject">
-            </div>
-        </div>
-        <p></p>
-        <div class="row">
-           <div class="col-sm-1"><span class="label label-info">发送内容</span></div>
-            <div class="col-md-9">
-                <textarea class="form-control" rows="3" id="mail_data"></textarea>
-            </div>
-        </div>
-        <p></p>
+    </form>
+</div>
+  <div class="col-sm-5">构建后操作</div>
+  <div class="col-sm-10">
+  <hr style="height:10px;border:none;border-top:10px groove skyblue;" />
+  </div>
+  <div class="col-sm-10">
+  <div class="row">
+     <div class="col-sm-1"><span class="label label-info">邮箱名称</span></div>
+      <div class="col-md-6">
+          <input type="text" class="form-control input-sm"  id="mail_name" value="{{Edit_config[8]}}">
+      </div>
+  </div>
+  <p></p>
+  <div class="row">
+     <div class="col-sm-1"><span class="label label-info">发送主题</span></div>
+      <div class="col-md-6">
+          <input type="text" class="form-control input-sm"  id="mail_subject" value="{{Edit_config[9]}}">
+      </div>
+  </div>
+  <p></p>
+  <div class="row">
+     <div class="col-sm-1"><span class="label label-info">发送内容</span></div>
+      <div class="col-md-9">
+          <textarea class="form-control" rows="3" id="mail_data">{{Edit_config[10]}}</textarea>
+      </div>
+  </div>
+  <p></p>
 	<div class="row">
 		<div class="col-lg-4 text-right">
-   			<button type="button" class="btn btn-success btn-lg" id="view_save">
-      				保存
-   			</button>
+ 			<button type="button" class="btn btn-success btn-lg" id="view_save">
+				保存
+ 			</button>
 		</div>
 		<div class="col-lg-4 text-right">
-   			<button type="button" class="btn btn-warning btn-lg">
-      				取消	
-   			</button>
+ 			<button type="button" class="btn btn-warning btn-lg">
+				取消	
+ 			</button>
 		</div>
-        </div>
+  </div>
 	
-      </div>
+</div>
 {% end %}
