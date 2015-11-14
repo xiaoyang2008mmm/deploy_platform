@@ -32,7 +32,7 @@ class Application(tornado.web.Application):
                  	db =options.redis_db,     password=options.redis_password )
 
              self.db = redis.Redis(connection_pool=pool)                                               
-	     if  self.db:
+	     if  self.db.ping():
 	         print "redis database has connect already ,Please use !"
 	except:
 	     print  "数据库连接不上"
